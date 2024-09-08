@@ -1,0 +1,42 @@
+---
+interface Props {
+  img_url: string;
+  name: string;
+  isBig?: boolean;
+}
+const { name, img_url, isBig = false } = Astro.props;
+const id = img_url.split("/").at(-2);
+const audio_src = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
+const img_src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+---
+
+<li
+  class=`card rounded flex flex-col justify-center items-center bg-orange-200 text-black p-3 shadow-md border-white text-center ${isBig? 'big' : ''}`
+>
+  <a href=`/pokemons/${name}`>
+    <p class="text-end font-bold">ID: {id}</p>
+    <img
+    transition:name={`${name}-image`}
+      src={img_src}
+      class="w-full h-auto object-cover drop-shadow-xl"
+      alt=""
+    />
+    <h3 class:list={
+        ['capitalize', 'font-semibold',
+            {'text-blue-500' : isBig}
+        ]
+    }>{name}</h3>
+    
+        <audio controls class="w-full mt-3">
+            <source src={audio_src} type="audio/ogg" />
+          </audio>
+    
+    
+  </a>
+</li>
+
+<style>
+    li.big{
+        @apply  text-5xl
+    }
+</style>

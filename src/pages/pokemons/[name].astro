@@ -1,0 +1,36 @@
+---
+import type { GetStaticPaths } from "astro";
+import MainLayout from "../../Layouts/MainLayout.astro";
+import PokemonCard from "../../Components/PokemonCard.astro";
+
+import type { PokemonListResponse } from "../../interfaces/pokemon-list.response";
+
+export const getStaticPaths = (async () => {
+  const resp = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+  const { results } = (await resp.json()) as PokemonListResponse;
+
+  return results.map(({ name, url }) => ({
+    params: { name },
+    props: { name, url },
+  }));
+}) satisfies GetStaticPaths;
+
+const { name } = Astro.params;
+const {url } = Astro.props;
+
+const audioSrc =
+  "https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/1.ogg";
+---
+
+<MainLayout title={name}>
+  <a href="/">Regresar</a>
+  <section class="flex justify-center flex-col items-center h-screen">
+    <PokemonCard img_url={url} name={name} isBig={true} />
+  </section>
+</MainLayout>
+
+<style>
+  a {
+    @apply hover:underline text-2xl mb-6 text-yellow-500;
+  }
+</style>
