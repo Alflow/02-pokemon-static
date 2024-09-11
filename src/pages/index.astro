@@ -3,18 +3,21 @@
 import PokemonCard from "@components/pokemons/PokemonCard.astro"
 import MainLayout from "../Layouts/MainLayout.astro"
 
-const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=12');
 import type {PokemonListResponse} from "../interfaces/pokemon-list.response";
 const data = (await response.json()) as PokemonListResponse;
 
 console.log(data);
 
 ---
-<MainLayout title="Inicio">
+<MainLayout title="Inicio" description="Bienvenido a la Pokédex de la primera generación">
 	<h1 class="text-3xl text-[#FFBA08] mb-5">Listado de pokemons</h1>
-	<ul class="text-[#fafafa] grid grid-cols-2 md:grid-cols-6 gap-4">
+	<ul class="text-[#fafafa] grid grid-cols-2 md:grid-cols-6 gap-4 mb-12">
 		{data.results.map((pokemon, url)=>
 		<PokemonCard name={pokemon.name} img_url={pokemon.url}></PokemonCard>
 		)}
 	</ul>
+	<div class="btn-wrapper flex justify-center">
+		<a class="btn bg-yellow-400 text-3xl p-3 rounded mt-4 font-semibold" href="/pokemons/1">Ver todos!</a>
+	</div>
 </MainLayout>
