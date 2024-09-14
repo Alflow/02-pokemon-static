@@ -12,7 +12,7 @@ interface Props {
 const {
   title = siteInfo.title,
   description = siteInfo.description,
-  image
+  image,
 } = Astro.props;
 ---
 
@@ -22,25 +22,18 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description}>
-    <meta name="author" content="Alfredo Alberruche">
+    <meta name="description" content={description} />
+    <meta name="author" content="Alfredo Alberruche" />
 
     <!-- OG METATAGS -->
-    <meta name="og:title" content={title}>
-    <meta name="og:description" content={description}>
-    <meta name="og:image" content={image}>
-    
+    <meta name="og:title" content={title} />
+    <meta name="og:description" content={description} />
+    <meta name="og:image" content={image} />
     <!-- Required -->
     <title>{title}</title>
     <ViewTransitions transition:animate="slide" />
-    <!-- <style>
-      @view-transition {
-        navigation: auto;
-        animation: slide;
-      }
-    </style> -->
   </head>
-  <body class="bg-[#222222]">
+  <body class="bg-[#222222] text-[#fafafa]">
     <NavBar />
     <main class="px-4 py-4">
       <slot />

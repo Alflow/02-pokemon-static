@@ -1,9 +1,60 @@
 ---
-
+const links = [
+  { href: "/", text: "Inicio (Listado)" },
+  { href: "/pokemons/1", text: "Pokédex (Paginado)" },
+  { href: "/favourites", text: "Mis favoritos" },
+];
+const currentUrl = Astro.url.pathname;
+console.log(Astro.url);
 ---
 
-<nav class="bg-[#FAFAFA] text-[#02020A] px-4 text-2xl gap-4 flex py-4">
-  <a href="/">Inicio</a>
-  <a href="/about">Sobre esta web</a>
-  <a href="/pokedex">Pokèdex</a>
+<nav class="bg-white shadow dark:bg-gray-800 text-xl">
+  <div
+    class="navLinks-container flex items-center justify-center p-6 mx-auto text-gray-600 capitalize dark:text-gray-300"
+  >
+    <!-- {links.map(({href, text})=><a class=`nav__link ${currentUrl==href ? 'active':''}` href={href}>{text}</a> )} -->
+    {
+      links.map(({ href, text }) => (
+        // <a
+        //   href={href}
+        //   class:list={[
+        //     "text-gray-800 dark:text-gray-200 mx-1.5 sm:mx-6",
+        //     {
+        //       'border-b-2 border-blue-500': currentUrl === href,
+        //     }
+        //   ]}
+        // >
+        //   {text}
+        // </a>
+        <div>
+          <a
+            href={href}
+            class="text-gray-800 dark:text-gray-200 mx-1.5 sm:mx-6"
+          >
+            {text}
+          </a>
+          {currentUrl === href ? (
+            <div
+              transition:name="menu-line"
+              class="border-b-2 border-blue-500 mx-4"
+            />
+          ) : (
+            <div class="border border-transparent"></div>
+          )}
+        </div>
+      ))
+    }
+  </div>
 </nav>
+
+<style>
+  .navLinks-container {
+    @apply h-24;
+  }
+  .nav__link {
+    @apply text-gray-800 dark:text-gray-200 mx-1.5 sm:mx-6  hover:border-blue-500;
+  }
+  .nav__link.active {
+    @apply border-b-2;
+  }
+</style>

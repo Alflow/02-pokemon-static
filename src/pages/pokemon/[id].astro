@@ -26,7 +26,7 @@ const {name, url} = Astro.props
 ---
 
 <MainLayout title={name}>
-    <a href="/">Regresar</a>
+    <a href="/pokemons/1">Regresar</a>
     <section class="flex justify-center flex-col items-center h-screen">
       <PokemonCard img_url={url} name={name} isBig={true} />
     </section>
